@@ -36,21 +36,18 @@ To add it to GithubAction
 ...
 
 jobs:
-  deploy:
+  deployk8s:
+    name: Deployk8s
     runs-on: ubuntu-latest
-
+    needs: kubescape
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Kubernetes CLI
-      uses: steebchen/kubectl@v1
+    - uses: actions/checkout@v2
+    - uses: actions-hub/kubectl@master
+      env:
+        KUBE_HOST: ${{ secrets.KUBE_HOST }}
+        KUBE_CERTIFICATE: ${{ secrets.KUBE_CERTIFICATE }}
+        KUBE_TOKEN: ${{ secrets.TOKEN }}
       with:
-        version: 'latest'
-        kubeconfig: ${{ secrets.TOKEN }}
-
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl --token=$TOKEN --server=https://127.0.0.1:6443 --insecure-skip-tls-verify  apply -f path/to/manifest.yml
+        args: --insecure-skip-tls-verify --server=https://127.0.0.1:6443  apply -f manifest/*.yaml
 
 ```
