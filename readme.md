@@ -31,7 +31,7 @@ kubectl  --token=$TOKEN --server=https://127.0.0.1:6443 get po
 ```
 For this specific GithubAction, you also need to create KUBE_CERTIFICATE and KUBE_HOST
 
-### To be tested  
+### GithubAction  
 To add it to GithubAction
 ````
 ...
