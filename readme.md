@@ -25,10 +25,11 @@ Please store TOKEN in a secret in the CI/CD pipeline
 ```
 TOKEN=$(kubectl get secret cicd-access -o go-template='{{.data.token | base64decode}}')
 ```
-Then you should be capable invoking the CI/CD pipeline ... (you might need to specify a host
+Then you should be capable invoking the CI/CD pipeline ... 
 ```
 kubectl  --token=$TOKEN --server=https://127.0.0.1:6443 get po
 ```
+For this specific GithubAction, you also need to create KUBE_CERTIFICATE and KUBE_HOST
 
 ### To be tested  
 To add it to GithubAction
@@ -44,10 +45,10 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions-hub/kubectl@master
       env:
+        KUBE_TOKEN: ${{ secrets.TOKEN }}
         KUBE_HOST: ${{ secrets.KUBE_HOST }}
         KUBE_CERTIFICATE: ${{ secrets.KUBE_CERTIFICATE }}
-        KUBE_TOKEN: ${{ secrets.TOKEN }}
       with:
-        args: --insecure-skip-tls-verify --server=https://127.0.0.1:6443  apply -f manifest/*.yaml
+        args: --insecure-skip-tls-verify apply -f manifest/*.yaml
 
 ```
