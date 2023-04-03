@@ -3,7 +3,7 @@
 kubectl create sa cicd-access -n default
 ```
 
-## As of k8s 1.25 -- need to create a non expiring SA token
+### As of k8s 1.25 -- need to create a non expiring SA token
 ```
 kubectl apply -f - <<EOF
 apiVersion: v1
@@ -15,6 +15,7 @@ metadata:
     kubernetes.io/service-account.name: cicd-access
 EOF
 ```
+## Create ClusterRoleBinding
 ```
 kubectl create clusterrolebinding cicd-access-rolebinding --clusterrole cluster-admin --serviceaccount default:cicd-access
 ```
@@ -25,5 +26,4 @@ TOKEN=$(kubectl get secret cicd-access -o go-template='{{.data.token | base64dec
 ```
 Then you should be capable invoking the CI/CD pipeline ... (you might need to specify a host
 ```
-kubectl  --token=$TOKEN get po
-```
+kubectl  --token=$TOKEN --server=https://127.0.0.1:6443 get po```
