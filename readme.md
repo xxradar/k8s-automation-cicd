@@ -49,6 +49,6 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl --token=$TOKEN --server=--server=https://127.0.0.1:6443  apply -f path/to/manifest.yml
+        kubectl --token=$TOKEN --server=https://127.0.0.1:6443  apply -f path/to/manifest.yml
 
 ```
