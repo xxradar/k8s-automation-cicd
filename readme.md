@@ -1,4 +1,5 @@
 ## Prepare K8S cluster
+### Create a service account for CI/CD pipeline
 ```
 kubectl create sa cicd-access -n default
 ```
@@ -19,7 +20,7 @@ EOF
 ```
 kubectl create clusterrolebinding cicd-access-rolebinding --clusterrole cluster-admin --serviceaccount default:cicd-access
 ```
-## CICD Automation
+## CI/CD Automation
 Please store TOKEN in a secret in the CI/CD pipeline
 ```
 TOKEN=$(kubectl get secret cicd-access -o go-template='{{.data.token | base64decode}}')
