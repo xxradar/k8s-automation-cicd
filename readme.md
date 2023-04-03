@@ -15,7 +15,7 @@ metadata:
     kubernetes.io/service-account.name: cicd-access
 EOF
 ```
-## Create ClusterRoleBinding
+### Create ClusterRoleBinding
 ```
 kubectl create clusterrolebinding cicd-access-rolebinding --clusterrole cluster-admin --serviceaccount default:cicd-access
 ```
@@ -28,7 +28,7 @@ Then you should be capable invoking the CI/CD pipeline ... (you might need to sp
 ```
 kubectl  --token=$TOKEN --server=https://127.0.0.1:6443 get po```
 ````
-## To be tested  
+### To be tested  
 To add it to GithubAction
 ````
 ...
