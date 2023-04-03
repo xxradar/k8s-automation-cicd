@@ -27,3 +27,28 @@ TOKEN=$(kubectl get secret cicd-access -o go-template='{{.data.token | base64dec
 Then you should be capable invoking the CI/CD pipeline ... (you might need to specify a host
 ```
 kubectl  --token=$TOKEN --server=https://127.0.0.1:6443 get po```
+````
+## To be tested  
+To add it to GithubAction
+````
+...
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Kubernetes CLI
+      uses: steebchen/kubectl@v1
+      with:
+        version: 'latest'
+        kubeconfig: ${{ secrets.TOKEN }}
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl --token=$TOKEN --server=--server=https://127.0.0.1:6443  apply -f path/to/manifest.yml
+
+```
